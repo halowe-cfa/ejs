@@ -1,5 +1,28 @@
-//run npm init
-//npm i express
-//in your package.json, change "main": "index.js" to "main": "app.js"
-//create a basic server using const express, app.get, and app.listen
-//use res.send to send "Welcome"
+const express = require('express');
+const app = express();
+
+let ejs = require('ejs');
+
+//route to homepage.ejs
+app.get("/", function(req, res) {
+    res.render("homepage.ejs");
+})
+
+//route to game.ejs
+app.get("/game/:gameTitle/:gameCreator", function(req, res) {
+
+    const title = req.params.gameTitle;
+    const creator = req.params.gameCreator;
+
+
+    res.render("game.ejs", {
+        gameTitle: title,
+        gameCreator: creator
+    });
+})
+
+app.set('view engine', 'ejs')
+
+app.listen("3000", function() {
+    console.log("Website is now online");
+})
